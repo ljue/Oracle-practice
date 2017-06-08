@@ -1,0 +1,10 @@
+SELECT DEPARTMENT_NAME, (CASE
+WHEN INSTR(TRIM (' ' FROM REPLACE(REPLACE(REPLACE(DEPARTMENT_NAME, ' ', ' *'), '* '), '*')), ' ')!=0
+THEN SUBSTR(TRIM (' ' FROM REPLACE(REPLACE(REPLACE(DEPARTMENT_NAME, ' ', ' *'), '* '), '*')), INSTR(TRIM (' ' FROM REPLACE(REPLACE(REPLACE(DEPARTMENT_NAME, ' ', ' *'), '* '), '*')), ' ')+1, 
+           CASE 
+           WHEN INSTR(TRIM (' ' FROM REPLACE(REPLACE(REPLACE(DEPARTMENT_NAME, ' ', ' *'), '* '), '*')), ' ',1,2)!=0 THEN (INSTR(TRIM (' ' FROM REPLACE(REPLACE(REPLACE(DEPARTMENT_NAME, ' ', ' *'), '* '), '*')), ' ',1,2)-INSTR(TRIM (' ' FROM REPLACE(REPLACE(REPLACE(DEPARTMENT_NAME, ' ', ' *'), '* '), '*')), ' '))
+           ELSE (LENGTH(TRIM (' ' FROM REPLACE(REPLACE(REPLACE(DEPARTMENT_NAME, ' ', ' *'), '* '), '*')))-INSTR(TRIM (' ' FROM REPLACE(REPLACE(REPLACE(DEPARTMENT_NAME, ' ', ' *'), '* '), '*')), ' '))
+           END) 
+ELSE TRIM (' ' FROM REPLACE(REPLACE(REPLACE(DEPARTMENT_NAME, ' ', ' *'), '* '), '*')) END)  
+                                 RESULT
+FROM DEPARTMENTS; 
